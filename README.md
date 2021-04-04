@@ -4,7 +4,7 @@
 
 ## Linguagem
 
-HTML
+javascript
 
 ## Framework
 
