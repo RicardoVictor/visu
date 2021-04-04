@@ -279,6 +279,12 @@
                 console.log("start")
                 var ndx = crossfilter(dataset)
 
+                dataset.forEach(function (d) {
+                    if(d.gender === 'org') d.gender = 'ORG'
+                    else if(d.gender === 'male') d.gender = 'Masculino'
+                    else if(d.gender === 'female') d.gender = 'Feminino'
+                })
+
                 // PIE CHART
 
                 genderDimension = ndx.dimension(function (d) {
@@ -287,7 +293,7 @@
                 genderGroup = genderDimension.group()
 
                 colorScalePieChart = d3.scaleOrdinal()
-                    .domain(['org',     'female',   'male'])
+                    .domain(['ORG',     'Feminino',   'Masculino'])
                     .range(['#f8f0f0',  '#ff6437',  '#3988e1'])
 
                 pieChart
