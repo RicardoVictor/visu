@@ -4,8 +4,8 @@
 
 ## Linguagem
 
-javascript e HTML
+javascript, HTML e CSS
 
 ## Framework
 
-d3.js
+d3.js, dc.js e leaflet
