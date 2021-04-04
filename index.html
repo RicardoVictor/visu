@@ -249,6 +249,8 @@
 
         var pieChart = new dc.PieChart("#pie-chart")
         var barChart = dc.barChart('#bar-chart')
+        
+        // MAP
 
         let map = L.map('mapid', { preferCanvas: true }).setView([31.8527581, 0.0246949], 2);
 
@@ -261,10 +263,12 @@
         setTimeout(function () { map.invalidateSize(true); }, 500);
 
         circleScale = d3.scaleLinear()
-            .domain([0, 100])
-            .range([100000, 250000])
+            .domain([0, 8])
+            .range([10000, 25000])
 
         circlesLayer = L.layerGroup().addTo(map)
+
+        //////////////////
 
         d3.csv("https://raw.githubusercontent.com/RicardoVictor/visu/main/laureate.csv").then(function (dataset) {
             d3.csv('https://raw.githubusercontent.com/RicardoVictor/visu/main/countrycode-latlong.csv').then(function (countries) {
@@ -374,7 +378,7 @@
 
                 console.log('ageDim')
                 ageDim = ndx.dimension(function (d) {
-                    return d.prizeAge
+                    return +d.prizeAge
                 })
                 console.log(ageDim.top(Infinity))
 
@@ -385,18 +389,31 @@
                 console.log('3------------------------------------------------------')
                 
                 colorScaleBarChart = d3.scaleOrdinal().range(['#Fdfd00'])
+                
+                var sortByCnt = ageGroup.top(Infinity).sort(function (a, b) {
+                    return a.key < b.key;
+                });
 
+                var names = sortByCnt.map(function (d) {
+                    return d.key;
+                });
+
+                console.log('names')
+                console.log(names)
+                
                 barChart
                     .width(1200)
                     .height(400)
                     .gap(5)
                     .dimension(ageDim)
                     .margins({top: 30, right: 50, bottom: 25, left: 70 })
-                    .x(d3.scaleOrdinal().domain(0, 301))
+                    //.x(d3.scaleOrdinal().domain(0, 301))
+                    .x(d3.scaleOrdinal().domain(names))
                     .xUnits(dc.units.ordinal)
                     .renderHorizontalGridLines(true)
                     .brushOn(true)
                     .group(ageGroup)
+                    .elasticX(true)
                     .colors(colorScaleBarChart)
                     .xAxis().tickFormat(d3.format("d"))
                     
