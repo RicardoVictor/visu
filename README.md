@@ -1,4 +1,4 @@
-# visu
+# Visualização de dados
 
 Storytelling com curiosidades sobre o prêmio Nobel e seus vencedores.
 
@@ -6,6 +6,6 @@ Storytelling com curiosidades sobre o prêmio Nobel e seus vencedores.
 
 HTML
 
-## Framework utilizado
+## Framework
 
 d3.js
